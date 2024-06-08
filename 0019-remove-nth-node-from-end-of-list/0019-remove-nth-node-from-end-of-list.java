@@ -24,7 +24,7 @@ class Solution {
         }
         ListNode nodetodel=slow.next;
         slow.next=slow.next.next;
-        nodetodel=null;
+  
         return head;
     }
 }
