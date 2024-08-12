@@ -1,34 +1,23 @@
 class KthLargest {
-
-    List<Integer> stream;
     int k;
+    PriorityQueue<Integer> minheap;
     public KthLargest(int k, int[] nums) {
-        stream= new ArrayList<Integer>(nums.length);
         this.k=k;
-        for(int num:nums){
-            stream.add(num);
+        minheap=new PriorityQueue<>(k);
+        for(int num: nums){
+            minheap.add(num);
+            if(minheap.size()>k){
+                minheap.poll();
+            }
         }
-        Collections.sort(stream);
     }
     
     public int add(int val) {
-        int index=getIndex(val);
-        stream.add(index,val);
-        return stream.get(stream.size()-k);
-        
-    }
-    private int getIndex(int val){
-        int left=0;
-        int right=stream.size()-1;
-
-        while(left<=right){
-            int mid=(left+right)/2;
-            int ele=stream.get(mid);
-            if(ele==val) return mid;
-            if(ele>val) {right=mid-1;}
-            else {left=mid+1;}
+        minheap.add(val);
+       if(minheap.size()>k){
+                minheap.poll();
         }
-        return left;
+        return minheap.peek();
     }
 }
 
